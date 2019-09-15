@@ -1,0 +1,23 @@
+<apex:page controller="ConAndOppController">
+    <apex:form >
+        <apex:pageBlock title="Opportunity and Contacts List" id="OppCon_list">
+            <!-- Opportunity List -->
+            <apex:pageBlockTable value="{! Opportunity }" var="op">
+                <!--<apex:column HeaderValue="Stage One" value="{!op }"/
+                <!--<apex:column HeaderValue="Stage Two" value="{! Opportunity[op] }"/>  -->             
+            </apex:pageBlockTable>
+            
+            <apex:pageBlockSection >
+                                <!-- Contacts List -->
+                <apex:pageBlockTable value="{! contacts }" var="ct">
+                    <apex:column value="{! ct.Name }"/>
+                    <apex:column value="{! ct.Phone }"/>
+                    <apex:column headerValue="Private?">
+                    	<apex:inputCheckbox value="{! ct.HiddenOnView__c }"/>
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

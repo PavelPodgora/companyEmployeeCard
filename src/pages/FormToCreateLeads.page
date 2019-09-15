@@ -1,0 +1,33 @@
+<apex:page id="pageToCreateLeads" controller="CreateLeadsFormController">
+<apex:form >
+
+<!--<apex:actionFunction action="{!redirect}" name="OpenPage" reRender="pb,theIframe">
+    <apex:param assignTo="{!Page}" value="" name="param1"/>
+</apex:actionFunction>-->
+    <apex:pageBlock id="pb" title="{!$Label.leads_form}">
+        <apex:pageBlockButtons >
+            <apex:commandButton value="{!$Label.Save_Button}"/>
+            <apex:commandButton value="{!$Label.Cancel_Button}"/>
+        </apex:pageBlockButtons>
+        
+<!--       <apex:pageBlockTable value="{!account.Contacts}" var="item">
+            <apex:column value="{!item.name}"/>
+            <apex:column headerValue="quantity">
+                <apex:inputField value="{!a.ali.Quantity}" required="true"/>
+            </apex:column>
+            <apex:column headerValue="quantity">
+                <apex:inputField value="{!a.ali.Quantity}" required="true"/>
+            </apex:column>
+            <apex:column headerValue="quantity">
+                <apex:inputField value="{!a.ali.Quantity}" required="true"/>
+            </apex:column>
+            <apex:column headerValue="quantity">
+                <apex:inputField value="{!a.ali.Quantity}" required="true"/>
+            </apex:column>
+            <apex:column headerValue="quantity">
+                <apex:inputField value="{!a.ali.Quantity}" required="true"/>
+            </apex:column>
+		</apex:pageBlockTable>-->
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

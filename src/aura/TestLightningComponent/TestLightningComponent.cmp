@@ -1,0 +1,29 @@
+<aura:component description="TestLightningComponent"
+                controller="TestLightningController"
+                implements="flexipage:availableForAllPageTypes">
+    <aura:attribute name="AccList"
+                    type="List"/>
+
+    <aura:handler name="init" value="{!this}"
+                  action="{!c.doInit}"/>
+    <div class="mainDiv">
+        <ui:outputText value="Account List View" class="header"/>
+        <table>
+            <aura:iteration items="{!v.AccList}"
+                            var="acc">
+                <tr>
+                    <td>{!acc.Name}</td>
+                    <td>
+                        <lightning:button onclick="{!c.viewContactDetails}"
+                                          value="{!acc}"
+                                          title="View Contacts"
+                                          variant="brand"
+                                          label="View Contacts"/>
+                    </td>
+                </tr>
+            </aura:iteration>
+        </table>
+        <div aura:id="TestLightningComponent"
+             class="TestLightningComponent"/>
+    </div>
+</aura:component>

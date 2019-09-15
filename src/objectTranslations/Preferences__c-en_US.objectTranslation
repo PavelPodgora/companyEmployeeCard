@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Preferences</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Preferences</value>
+    </caseValues>
+    <fields>
+        <label><!-- Skill --></label>
+        <name>Skill__c</name>
+        <relationshipLabel><!-- Preferences --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Student --></label>
+        <name>Student__c</name>
+        <relationshipLabel><!-- Preferences --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>Preferences Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>
