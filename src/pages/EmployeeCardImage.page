@@ -2,5 +2,25 @@
  - Created by Pavel on 17.09.2019.
  -->
 
-<apex:page id="EmployeeCardImage">
+<apex:page standardController="Contact" extensions="AddImageToContact">
+    <apex:form>
+        <apex:repeat value="{!Contact.Attachments}" var="at">
+            <apex:outputLink value="/apex/EmployeeCardEdit?id={!contact.id}&imageId={!at.Id}">
+                <apex:image url="/servlet/servlet.FileDownload?file={!at.Id}" width="200" height="300"/>
+            </apex:outputLink>
+        </apex:repeat>
+        <apex:pageblock >
+            <apex:pageMessages />
+            <apex:pageBlockSection showHeader="false" columns="1" id="block1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="File" for="file"/>
+                    <apex:inputFile accept="png,jpg,jpeg" value="{!attachment.body}" filename="{!attachment.name}" id="file"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem>
+                    <apex:commandButton action="{!upload}" value="Save"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+        </apex:pageblock>
+    </apex:form>
 </apex:page>
