@@ -4,18 +4,49 @@
 
 <apex:page id="EmployeeCardEdit" showHeader="false" standardStylesheets="false"
            standardController="Contact" extensions="SaveNewData">
-    <apex:form>
+    <apex:form style="background-color: cadetblue; position: relative; height: 370px;  width: calc(100% + 27px); margin-left: -10px; margin-top: -22px; ">
         <apex:actionFunction name="newPage" action="{!URLFOR("/apex/EmployeeCard",null,[id=contact.Id,imageId=$CurrentPage.parameters.imageId])}" rerender="out" status="myStatus"/>
-        <apex:image id="withoutImage" url="/servlet/servlet.FileDownload?file={!$CurrentPage.parameters.imageId}" width="200" height="300" />
+        <apex:image styleClass="imageView" id="withoutImage" url="/servlet/servlet.FileDownload?file={!$CurrentPage.parameters.imageId}"
+                    style=" margin: 25px 25px 25px 50px;
+                            width: 200px;
+                            height: 300px;
+                            display: inline-block;
+                            float: left;"/>
         <p/>
         <apex:pageMessages />
-        <apex:commandButton value="Выбрать фото" action="{!URLFOR("/apex/EmployeeCardImage",null,[id=contact.Id])}"/>
-        <apex:panelGrid id="panelWithInfo" columns="1">
-            <apex:panelGroup id="groupName">
+        <apex:commandButton value="Выбрать фото" action="{!URLFOR("/apex/EmployeeCardImage",null,[id=contact.Id])}"
+        style="background-color: aliceblue;
+                border-width: thin;
+                border-color: black;
+                border-radius: 40px 40px 40px 40px;
+                color: black;
+                margin-left: 5px;
+                margin-right: 5px;
+                text-align: center;
+                display: inline-block;
+                font-size: 15px;
+                position: absolute;
+                bottom: 10px;
+                left: 10px;"/>
+        <apex:panelGrid id="panelWithInfo" columns="1"
+        style=" color: #cccccc;
+                width: 300px;
+                height: 200px;
+                border-left: 2px solid #ccc;
+                margin-left: 20px;
+                padding: 0 10px 0 50px;
+                border-left-style: dotted;
+                font-size: large;
+                float: right;
+                display: inline-block;
+                text-align: left;
+                margin-top: 35px;
+                position: absolute;">
+            <apex:panelGroup >
                 <apex:outputLabel value="First Name:"/>
                 <apex:inputField value="{!contact.FirstName}"  />
             </apex:panelGroup>
-            <apex:panelGroup >
+            <apex:panelGroup style="display: flex;">
                 <apex:outputLabel value="Last Name:"/>
                 <apex:inputField value="{!contact.LastName}" required="true"/>
             </apex:panelGroup>
@@ -36,6 +67,19 @@
                 <apex:inputField value="{! contact.Email }"/>
             </apex:panelGroup>
         </apex:panelGrid>
-        <apex:commandButton action="{!save}" value="Сохранить" onClick="newPage()" />
+        <apex:commandButton action="{!save}" value="Сохранить" onClick="newPage()"
+                            style="background-color: aliceblue; /* Green */
+                            border-width: thin;
+                            border-color: black;
+                            border-radius: 40px 40px 40px 40px;
+                            color: black;
+                            margin-left: 5px;
+                            margin-right: 5px;
+                            text-align: center;
+                            display: inline-block;
+                            font-size: 15px;
+                            position: absolute;
+                            bottom: 10px;
+                            left: 180px;"/>
     </apex:form>
 </apex:page>

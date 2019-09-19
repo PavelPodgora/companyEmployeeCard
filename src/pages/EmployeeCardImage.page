@@ -4,9 +4,9 @@
 
 <apex:page standardController="Contact" extensions="AddImageToContact">
     <apex:form>
-        <apex:repeat value="{!Contact.Attachments}" var="at">
+        <apex:repeat value="{!Attachments}" var="at">
             <apex:outputLink value="/apex/EmployeeCardEdit?id={!contact.id}&imageId={!at.Id}">
-                <apex:image  url="/servlet/servlet.FileDownload?file={!at.Id}" width="200" height="300" style="padding: 5px 10px 5px 10px"/>
+                <apex:image  url="/servlet/servlet.FileDownload?file={!at.Id}" width="200" height="300"/>
             </apex:outputLink>
         </apex:repeat>
         <apex:pageblock >
@@ -17,7 +17,7 @@
                     <apex:inputFile accept="png,jpg,jpeg" value="{!attachment.body}" filename="{!attachment.name}" id="file"/>
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem>
-                    <apex:commandButton action="{!upload}" value="Сохранить" style="padding: 5px 10px 5px 10px; border:5px;"/>
+                    <apex:commandButton action="{!upload}" value="Сохранить"/>
                 </apex:pageBlockSectionItem>
             </apex:pageBlockSection>
         </apex:pageblock>

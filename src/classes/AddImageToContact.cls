@@ -28,7 +28,7 @@ public with sharing class AddImageToContact {
                     update attachment;
                 }
                 else{
-                    ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.CONFIRM, 'Invalid Type!!!'));
+                    ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Invalid Type!!!'));
                 }
             }
             else {
@@ -44,23 +44,23 @@ public with sharing class AddImageToContact {
         }
 
         attachment = new Attachment();
-        PageReference pageRef = new PageReference('/apex/EmployeeCardImage');
-        pageRef.getParameters().put('id', recId);
-        pageRef.setRedirect(true);
-        return pageRef;
+//        PageReference pageRef = new PageReference('/apex/EmployeeCardImage');
+//        pageRef.getParameters().put('id', recId);
+//        pageRef.setRedirect(true);
+        return null;
 
     }
 
-//    public List<Attachment> getAttachments() {
-//        List<Attachment> attachedFiles = [  SELECT Id
-//                                            FROM Attachment
-//                                            WHERE parentId = :recId
-//            ];
-//        if (attachedFiles == null || attachedFiles.size() == null) {
-//            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Error Uploading, file is BAD!!!'));
-//        }
-//
-//        return attachedFiles;
-//    }
+    public List<Attachment> getAttachments() {
+        List<Attachment> attachedFiles = [  SELECT Id
+                                            FROM Attachment
+                                            WHERE parentId = :recId
+            ];
+        if (attachedFiles.isEmpty() || attachedFiles.size() == null) {
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Error Uploading, file is BAD!!!'));
+        }
+
+        return attachedFiles;
+    }
 
 }
