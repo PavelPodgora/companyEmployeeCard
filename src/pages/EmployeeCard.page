@@ -6,24 +6,23 @@
            standardController="Contact" extensions="SaveAsPdfExtension"
            contentType="{! renderedContentType }" renderAs="{! renderingService }">
     <apex:stylesheet value="{!$Resource.pdfStyle}"/>
-    <apex:form >
+    <apex:form>
         <h1>Employee Card</h1>
         <hr/>
-            <apex:image id="withoutImage" value="{!$Resource.imageForVisit}" width="200" height="200" alt="Description of image here"/>
-            <apex:image url="/servlet/servlet.FileDownload?file={!$CurrentPage.parameters.imageId}" width="200" height="300" />
-            <apex:panelGrid id="panelWithInfo" columns="1">
-                <apex:panelGroup id="groupName">
-                    <apex:outputText value="{!contact.FirstName}"/>
-                    <apex:outputText value="{!contact.LastName}"/>
-                </apex:panelGroup>
-                <apex:outputText value="{!contact.Title}"/>
-                <apex:outputText value="{!contact.Department}"/>
-                <apex:outputText value="{! contact.Phone }"/>
-                <apex:outputText value="{! contact.Email }"/>
-            </apex:panelGrid>
+        <apex:image url="/servlet/servlet.FileDownload?file={!ImageId}" styleClass="imageView"/>
+        <apex:panelGrid id="panelWithInfo" columns="1" styleClass="infoView">
+            <apex:panelGroup id="groupName" style="font-family: Times New Roman;font-size:32px;margin-bottom:45px;">
+                <p style="margin: 2px"><apex:outputText value="{!contact.FirstName}"/>
+                                        <apex:outputText value="{!contact.LastName}"/></p>
+            </apex:panelGroup>
+            <p style="margin: 2px"><apex:outputText value="{!contact.Title}" style="margin 10px;"/></p>
+            <p style="margin: 2px"><apex:outputText value="{!contact.Department}" style="margin 10px;"/></p>
+            <p style="margin: 2px"><apex:outputText value="{! contact.Phone }" style="margin 10px;"/></p>
+            <p style="margin: 2px"><apex:outputText value="{! contact.Email }" style="margin 10px;"/></p>
+        </apex:panelGrid>
         <hr/>
-        <apex:outputPanel rendered="{! renderingService != 'PDF' }"
-                   style="text-align: right; margin: 10px;">
+        <apex:outputPanel rendered="{!renderingService != 'PDF'}"
+                          style="text-align: right; margin: 10px;">
             <apex:commandButton value="Edit" action="{!URLFOR("/apex/EmployeeCardEdit",null,[id=contact.Id])}"/>
             <apex:commandButton action="{! saveToPdf }" value="Save to PDF">
                 <apex:param assignTo="{! renderedFileName }" value="Contact-List.pdf"/>

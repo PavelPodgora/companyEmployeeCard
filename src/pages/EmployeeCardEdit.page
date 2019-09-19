@@ -3,22 +3,39 @@
  -->
 
 <apex:page id="EmployeeCardEdit" showHeader="false" standardStylesheets="false"
-           standardController="Contact" >
+           standardController="Contact" extensions="SaveNewData">
     <apex:form>
         <apex:actionFunction name="newPage" action="{!URLFOR("/apex/EmployeeCard",null,[id=contact.Id,imageId=$CurrentPage.parameters.imageId])}" rerender="out" status="myStatus"/>
         <apex:image id="withoutImage" url="/servlet/servlet.FileDownload?file={!$CurrentPage.parameters.imageId}" width="200" height="300" />
         <p/>
-        <apex:commandButton value="Choose Image" action="{!URLFOR("/apex/EmployeeCardImage",null,[id=contact.Id])}"/>
+        <apex:pageMessages />
+        <apex:commandButton value="Выбрать фото" action="{!URLFOR("/apex/EmployeeCardImage",null,[id=contact.Id])}"/>
         <apex:panelGrid id="panelWithInfo" columns="1">
             <apex:panelGroup id="groupName">
-                <apex:inputField value="{!contact.FirstName}"/>
-                <apex:inputField value="{!contact.LastName}"/>
+                <apex:outputLabel value="First Name:"/>
+                <apex:inputField value="{!contact.FirstName}"  />
             </apex:panelGroup>
-            <apex:inputField value="{!contact.Title}"/>
-            <apex:inputField value="{!contact.Department}"/>
-            <apex:inputField value="{! contact.Phone }"/>
-            <apex:inputField value="{! contact.Email }"/>
+            <apex:panelGroup >
+                <apex:outputLabel value="Last Name:"/>
+                <apex:inputField value="{!contact.LastName}" required="true"/>
+            </apex:panelGroup>
+            <apex:panelGroup>
+                <apex:outputLabel value="Title:"/>
+                <apex:inputField value="{!contact.Title}" />
+            </apex:panelGroup>
+            <apex:panelGroup>
+                <apex:outputLabel value="Department:"/>
+                <apex:inputField value="{!contact.Department}" />
+            </apex:panelGroup>
+            <apex:panelGroup>
+                <apex:outputLabel value="Phone:"/>
+                <apex:inputField value="{! contact.Phone }"/>
+            </apex:panelGroup>
+            <apex:panelGroup>
+                <apex:outputLabel value="Email:"/>
+                <apex:inputField value="{! contact.Email }"/>
+            </apex:panelGroup>
         </apex:panelGrid>
-        <apex:commandButton action="{!save}" value="Save" onClick="newPage()" />
+        <apex:commandButton action="{!save}" value="Сохранить" onClick="newPage()" />
     </apex:form>
 </apex:page>

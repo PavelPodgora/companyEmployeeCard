@@ -1,15 +1,10 @@
-<apex:page standardController="Account">
+<apex:page renderAs="pdf" >
     <apex:form>
-        <apex:pageBlock title="My Content" mode="edit">
-            <apex:pageBlockButtons>
-                <apex:commandButton action="{!save}" value="Save"/>
-            </apex:pageBlockButtons>
-            <apex:pageBlockSection title="My Content Section" columns="2">
-                <apex:inputField value="{!account.name}"/>
-                <apex:inputField value="{!account.site}"/>
-                <apex:inputField value="{!account.type}"/>
-                <apex:inputField value="{!account.accountNumber}"/>
-            </apex:pageBlockSection>
-        </apex:pageBlock>
+        <apex:image value="{!$Resource.IMG_0423.jpg}" style="margin: 25px 25px 25px 50px;
+                                                            border-width: thin;
+                                                            border-color: black;
+                                                            border-radius: 40px 40px 40px 40px;
+                                                            width: 200px;
+                                                            height: 100px;"/>
     </apex:form>
 </apex:page>

@@ -3,23 +3,6 @@
  */
 
 public with sharing class AddImageToContact {
-
-//    public Attachment att{get;set;}
-//    private Id parentId{get;set;}
-//
-//    public AddImageToContact(ApexPages.StandardController controller){
-//        att = new Attachment();
-//        parentId = controller.getId();
-//    }
-//
-//    public void uploadImage(){
-//        att.parentId = parentId;
-//        att.name = 'image';
-//        insert att;
-//        att = new Attachment();
-//    }
-//
-
     String recId;
 
     public AddImageToContact(ApexPages.StandardController controller) {
@@ -36,12 +19,17 @@ public with sharing class AddImageToContact {
     }
 
     public PageReference upload(){
-        attachment.ParentId = recId;
-
         try{
-            if(attachment.Name.endsWith('.png')||attachment.Name.endsWith('.jpg')||attachment.Name.endsWith('.jpeg')) {
-                insert attachment;
-                ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.CONFIRM, 'File uploaded'));
+            if(attachment.Body != null) {
+                if(attachment.Name.endsWith('.png') || attachment.Name.endsWith('.jpg') || attachment.Name.endsWith('.jpeg')){
+                    attachment.ParentId = recId;
+                    insert attachment;
+                    ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.CONFIRM, 'File uploaded'));
+                    update attachment;
+                }
+                else{
+                    ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.CONFIRM, 'Invalid Type!!!'));
+                }
             }
             else {
                 ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Invalid image type, add another file!'));
@@ -55,6 +43,24 @@ public with sharing class AddImageToContact {
             attachment.Body = null;
         }
 
-        return null;
+        attachment = new Attachment();
+        PageReference pageRef = new PageReference('/apex/EmployeeCardImage');
+        pageRef.getParameters().put('id', recId);
+        pageRef.setRedirect(true);
+        return pageRef;
+
     }
+
+//    public List<Attachment> getAttachments() {
+//        List<Attachment> attachedFiles = [  SELECT Id
+//                                            FROM Attachment
+//                                            WHERE parentId = :recId
+//            ];
+//        if (attachedFiles == null || attachedFiles.size() == null) {
+//            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Error Uploading, file is BAD!!!'));
+//        }
+//
+//        return attachedFiles;
+//    }
+
 }

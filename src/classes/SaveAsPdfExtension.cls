@@ -3,8 +3,11 @@
  */
 
 public with sharing class SaveAsPdfExtension {
+    String recId;
 // Required extension constructor (empty, no-op)
-    public SaveAsPDFExtension(ApexPages.StandardController controller) {}
+    public SaveAsPdfExtension(ApexPages.StandardController controller) {
+        recId = controller.getId();
+    }
 
     // Determines what kind of rendering to use for the page request
     public String renderingService { get; private set; }
@@ -52,13 +55,27 @@ public with sharing class SaveAsPdfExtension {
         return null;
     }
 
-    // Private helper -- basic, conservative santization
     private String sanitizeFileName(String unsafeName) {
         String allowedCharacters = '0-9a-zA-Z-_.';
         String sanitizedName =
                 unsafeName.replaceAll('[^' + allowedCharacters + ']', '');
-        // You might also want to check filename length,
-        // that the filename ends in '.pdf', etc.
         return(sanitizedName);
+    }
+
+    public Id getImageId() {
+        Id fileId = null;
+
+        if (fileId == null) {
+            List<Attachment> attachedFiles = [  SELECT Id
+                                                FROM Attachment
+                                                WHERE parentId = :recId
+                                                ORDER BY LastModifiedDate DESC
+                                                LIMIT 1
+            ];
+            if (attachedFiles != null && attachedFiles.size() > 0) {
+                fileId = attachedFiles[0].Id;
+            }
+        }
+        return fileId;
     }
 }
