@@ -63,4 +63,15 @@ public with sharing class AddImageToContact {
         return attachedFiles;
     }
 
+    public void updateAttachments(Id attId) {
+        Attachment attached = [         SELECT Id
+                                        FROM Attachment
+                                        WHERE Id = :attId
+        ];
+        if (attached == null) {
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Error Uploading, file is BAD!!!'));
+        }
+        update attached;
+    }
+
 }

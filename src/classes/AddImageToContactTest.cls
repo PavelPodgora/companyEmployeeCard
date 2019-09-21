@@ -12,9 +12,6 @@ public with sharing class AddImageToContactTest {
         testAtt.ParentId = testCon.Id;
         testAtt.body = Blob.valueOf('AttachmentBody.png');
 
-
-        //AddImageToContact.attachment = testAtt;
-
         ApexPages.StandardController sc = new ApexPages.StandardController(testCon);
         AddImageToContact testExtension = new AddImageToContact(sc);
         testExtension.attachment = testAtt;

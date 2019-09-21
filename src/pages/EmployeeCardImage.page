@@ -5,8 +5,8 @@
 <apex:page standardController="Contact" extensions="AddImageToContact">
     <apex:form>
         <apex:repeat value="{!Attachments}" var="at">
-            <apex:outputLink value="/apex/EmployeeCardEdit?id={!contact.id}&imageId={!at.Id}">
-                <apex:image  url="/servlet/servlet.FileDownload?file={!at.Id}" width="200" height="300"/>
+            <apex:outputLink value="/apex/EmployeeCardEdit?id={!contact.id}&imageId={!at.Id}" >
+                <apex:image  url="/servlet/servlet.FileDownload?file={!at.Id}" width="200" height="300" onClick="{!updateAttachments(at.Id)}"/>
             </apex:outputLink>
         </apex:repeat>
         <apex:pageblock >
