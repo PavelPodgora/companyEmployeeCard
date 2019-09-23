@@ -1,0 +1,27 @@
+public class MyContactListController {
+	@AuraEnabled
+	public static List<Contact> getContacts(Id recordId) {
+   		return [SELECT Id, FirstName, LastName, Email, Phone FROM Contact WHERE AccountId = :recordId];
+	}
+    
+    @AuraEnabled
+    public static List<AccountWrapper> init(){
+        List<Account> accounts = [SELECT Id FROM Account];
+        List<AccountWrapper> wrappers = new List<AccountWrapper>();
+        for(Account account: accounts){
+            AccountWrapper wrapper = new AccountWrapper(account);
+            wrappers.add(wrapper);
+        }
+        return wrappers;
+    }
+    
+    public class AccountWrapper{
+        public Account acc;
+        public Boolean checked;
+        
+        public AccountWrapper(Account acc){
+            this.acc = acc;
+            checked = false;
+        }
+    }
+}

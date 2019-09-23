@@ -7,7 +7,7 @@
     <apex:form style="background-color: cadetblue; position: relative; height: 370px;  width: calc(100% + 27px); margin-left: -10px; margin-top: -22px; ">
         <apex:actionFunction name="newPage"  action="{!URLFOR("/apex/EmployeeCard",null,[id=contact.Id])}" rerender="out" status="myStatus"/>
         <apex:actionFunction name="updAtt"  action="{!updateAttachments}" rerender="out" status="myStatus"/>
-        <apex:image styleClass="imageView" id="withoutImage" url="/servlet/servlet.FileDownload?file={!ImageId}"
+        <apex:image styleClass="imageView" id="withoutImage" url="/servlet/servlet.FileDownload?file={!ImageId}" value="{!$Resource.imageForVisit}"
                     style=" margin: 25px 25px 25px 50px;
                             width: 200px;
                             height: 300px;
@@ -45,27 +45,33 @@
                 position: absolute;">
             <apex:panelGroup >
                 <apex:outputLabel value="First Name:"/>
-                <apex:inputField type="text" value="{!contact.FirstName}"  />
+                <apex:inputField type="text" value="{!contact.FirstName}" style="float: right;margin-bottom: 3px;border: 2px solid gray;
+  border-radius: 4px;" />
             </apex:panelGroup>
             <apex:panelGroup style="display: flex;">
                 <apex:outputLabel value="Last Name:"/>
-                <apex:inputField type="text" value="{!contact.LastName}" required="true"/>
+                <apex:inputField type="text" value="{!contact.LastName}" required="true" style="float: right; margin-left: 15px; margin-bottom: 3px;border: 2px solid gray;
+  border-radius: 4px;"/>
             </apex:panelGroup>
             <apex:panelGroup>
                 <apex:outputLabel value="Title:"/>
-                <apex:inputField type="text" value="{!contact.Title}" />
+                <apex:inputField type="text" value="{!contact.Title}" style="float: right; margin-bottom: 3px;border: 2px solid gray;
+  border-radius: 4px;" />
             </apex:panelGroup>
             <apex:panelGroup>
                 <apex:outputLabel value="Department:"/>
-                <apex:inputField type="text" value="{!contact.Department}" />
+                <apex:inputField type="text" value="{!contact.Department}" style="float: right; margin-bottom: 3px; border: 2px solid gray;
+  border-radius: 4px;" />
             </apex:panelGroup>
             <apex:panelGroup>
                 <apex:outputLabel value="Phone:"/>
-                <apex:inputField type="tel" value="{! contact.Phone }"/>
+                <apex:inputField type="tel" value="{! contact.Phone }" style="float: right; margin-bottom: 3px; border: 2px solid gray;
+  border-radius: 4px;"/>
             </apex:panelGroup>
             <apex:panelGroup>
                 <apex:outputLabel value="Email:"/>
-                <apex:inputField type="email" value="{! contact.Email }" />
+                <apex:inputField type="email" value="{! contact.Email }" style="float: right; border: 2px solid gray;
+  border-radius: 4px;"/>
             </apex:panelGroup>
         </apex:panelGrid>
         <apex:commandButton action="{!save}" value="Сохранить" onClick="newPage()" onMouseUp="updAtt()"

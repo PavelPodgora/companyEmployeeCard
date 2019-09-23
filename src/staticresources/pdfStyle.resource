@@ -59,3 +59,7 @@ h1 {
     bottom: 10px;
     left: 10px;
 }
+.forInput{
+    float: right;
+    margin-bottom: 3px;
+}
