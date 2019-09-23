@@ -19,7 +19,7 @@ h1 {
 }
 
 .imageView{
-    margin: 25px 25px 25px 50px;
+    margin: 25px 10px 25px 0;
     border-width: thin;
     border-color: black;
     border-radius: 10px 40px;
@@ -28,16 +28,18 @@ h1 {
 }
 
 .infoView{
+    text-align: left;
     color: #cccccc;
-    width: 300px;
-    height: 190px;
-    border-left: 2px solid #ccc; /* Параметры линии */
-    margin-left: 20px; /* Отступ слева */
-    padding: 70px 10px 0 50px;
+    width: 330px;
+    height: 295px;
+    border-left: 2px solid #ccc;
+    padding: 0px 20px 0 30px;
     border-left-style: dotted;
     font-size: large;
     display: inline-block;
     float: right;
+    word-break: break-word;
+    margin-right: 20px;
 }
 .textInBloc{
     margin-top: 10px;
@@ -53,7 +55,6 @@ h1 {
     margin-left: 5px;
     margin-right: 5px;
     text-align: center;
-    display: inline-block;
     font-size: 15px;
     bottom: 10px;
     left: 10px;

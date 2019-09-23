@@ -10,8 +10,8 @@
             <h1>Employee Card</h1>
             <apex:image url="/servlet/servlet.FileDownload?file={!ImageId}" styleClass="imageView"/>
             <apex:panelGrid id="panelWithInfo" columns="1" styleClass="infoView">
-                <apex:panelGroup id="groupName" style="font-family: Times New Roman;font-size:32px;">
-                    <p style="margin-bottom: 15px">
+                <apex:panelGroup id="groupName">
+                    <p style="margin-bottom: 15px; ">
                         <apex:outputText value="{!contact.FirstName}" style="margin-right:10px;"/>
                         <apex:outputText value="{!contact.LastName}"/>
                     </p>

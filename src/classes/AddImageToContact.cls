@@ -9,38 +9,27 @@ public with sharing class AddImageToContact {
         recId = controller.getId();
     }
 
-    public Attachment attachment{
-        get{
-            if(attachment == null)
+    public Attachment attachment {
+        get {
+            if (attachment == null)
                 attachment = new Attachment();
             return attachment;
         }
         set;
     }
 
-    public PageReference upload(){
-        try{
-            if(attachment.Body != null) {
-                if(attachment.Name.endsWith('.png') || attachment.Name.endsWith('.jpg') || attachment.Name.endsWith('.jpeg')){
-                    attachment.ParentId = recId;
-                    insert attachment;
-                    ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.CONFIRM, 'File uploaded'));
-                    update attachment;
-                }
-                else{
-                    ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Invalid Type!!!'));
-                }
+    public PageReference upload() {
+        if (attachment.Body != null) {
+            if (attachment.Name.endsWith('.png') || attachment.Name.endsWith('.jpg') || attachment.Name.endsWith('.jpeg')) {
+                attachment.ParentId = recId;
+                insert attachment;
+                ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.CONFIRM, 'File uploaded'));
+
+            } else {
+                ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Invalid Type!!!'));
             }
-            else {
-                ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Invalid image type, add another file!'));
-            }
-        }
-        catch(DmlException e){
-            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Error Uploading, file is BAD!!!'));
-            return null;
-        }
-        finally{
-            attachment.Body = null;
+        } else {
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Invalid image type, add another file!'));
         }
 
         attachment = new Attachment();
@@ -52,26 +41,46 @@ public with sharing class AddImageToContact {
     }
 
     public List<Attachment> getAttachments() {
-        List<Attachment> attachedFiles = [  SELECT Id
-                                            FROM Attachment
-                                            WHERE parentId = :recId
-            ];
-        if (attachedFiles.isEmpty() || attachedFiles.size() == null) {
-            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Error Uploading, file is BAD!!!'));
-        }
+        List<Attachment> attachedFiles = [
+                SELECT Id
+                FROM Attachment
+                WHERE parentId = :recId
+        ];
 
         return attachedFiles;
     }
 
-    public void updateAttachments(Id attId) {
-        Attachment attached = [         SELECT Id
-                                        FROM Attachment
-                                        WHERE Id = :attId
-        ];
-        if (attached == null) {
-            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Error Uploading, file is BAD!!!'));
+    public Id AttachmentId { get; set; }
+
+    public String getImageId() {
+        AttachmentId = ApexPages.currentPage().getParameters().get('imageId');
+
+        if (AttachmentId == null) {
+            List<Attachment> attachedFiles = [
+                    SELECT Id
+                    FROM Attachment
+                    WHERE parentId = :recId
+                    ORDER BY LastModifiedDate
+                            DESC
+                    LIMIT 1
+            ];
+            if (attachedFiles != null && attachedFiles.size() > 0) {
+                AttachmentId = attachedFiles[0].Id;
+            }
         }
-        update attached;
+
+        return AttachmentId;
     }
 
+    public void updateAttachments() {
+        AttachmentId = ApexPages.currentPage().getParameters().get('imageId');
+        if (AttachmentId != null) {
+            Attachment attached = [
+                    SELECT Id,Name
+                    FROM Attachment
+                    WHERE Id = :AttachmentId
+            ];
+            update attached;
+        }
+    }
 }

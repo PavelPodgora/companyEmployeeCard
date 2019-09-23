@@ -3,10 +3,11 @@
  -->
 
 <apex:page id="EmployeeCardEdit" showHeader="false" standardStylesheets="false"
-           standardController="Contact" docType="html-5.0" >
+           standardController="Contact" extensions="AddImageToContact" docType="html-5.0" >
     <apex:form style="background-color: cadetblue; position: relative; height: 370px;  width: calc(100% + 27px); margin-left: -10px; margin-top: -22px; ">
-        <apex:actionFunction name="newPage" action="{!URLFOR("/apex/EmployeeCard",null,[id=contact.Id,imageId=$CurrentPage.parameters.imageId])}" rerender="out" status="myStatus"/>
-        <apex:image styleClass="imageView" id="withoutImage" url="/servlet/servlet.FileDownload?file={!$CurrentPage.parameters.imageId}"
+        <apex:actionFunction name="newPage"  action="{!URLFOR("/apex/EmployeeCard",null,[id=contact.Id])}" rerender="out" status="myStatus"/>
+        <apex:actionFunction name="updAtt"  action="{!updateAttachments}" rerender="out" status="myStatus"/>
+        <apex:image styleClass="imageView" id="withoutImage" url="/servlet/servlet.FileDownload?file={!ImageId}"
                     style=" margin: 25px 25px 25px 50px;
                             width: 200px;
                             height: 300px;
@@ -64,10 +65,10 @@
             </apex:panelGroup>
             <apex:panelGroup>
                 <apex:outputLabel value="Email:"/>
-                <apex:inputField type="email" value="{! contact.Email }"/>
+                <apex:inputField type="email" value="{! contact.Email }" />
             </apex:panelGroup>
         </apex:panelGrid>
-        <apex:commandButton action="{!save}" value="Сохранить" onClick="newPage()"
+        <apex:commandButton action="{!save}" value="Сохранить" onClick="newPage()" onMouseUp="updAtt()"
                             style="background-color: aliceblue; /* Green */
                             border-width: thin;
                             border-color: black;
