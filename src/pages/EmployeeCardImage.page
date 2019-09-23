@@ -3,24 +3,42 @@
  -->
 
 <apex:page standardController="Contact" extensions="AddImageToContact">
+    <style>
+        #spinner{
+            display: none;
+            text-align: center;
+            position: fixed;
+            top: 280px;
+            left: 600px;
+            background:rgba(0 0 0 5);
+        }
+    </style>
+    <script>
+        function showSpinner(){
+            document.getElementById('spinner').style.display = 'block';
+        }
+    </script>
     <apex:form>
-        <apex:repeat value="{!Contact.Attachments}" var="at">
+        <apex:repeat value="{!Attachments}" var="at">
             <apex:outputLink value="/apex/EmployeeCardEdit?id={!contact.id}&imageId={!at.Id}">
-                <apex:image url="/servlet/servlet.FileDownload?file={!at.Id}" width="200" height="300"/>
+                <apex:image  url="/servlet/servlet.FileDownload?file={!at.Id}" width="200" height="300"/>
+<!--                <apex:param name="attach" value="{!at.Id}" assignTo="{!AttachmentId}"/>-->
             </apex:outputLink>
         </apex:repeat>
         <apex:pageblock >
             <apex:pageMessages />
             <apex:pageBlockSection showHeader="false" columns="1" id="block1">
                 <apex:pageBlockSectionItem >
-                    <apex:outputLabel value="File" for="file"/>
+                    <apex:outputLabel value="File" for="file" />
                     <apex:inputFile accept="png,jpg,jpeg" value="{!attachment.body}" filename="{!attachment.name}" id="file"/>
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem>
-                    <apex:commandButton action="{!upload}" value="Save"/>
+                    <apex:commandButton action="{!upload}" onClick="showSpinner()" value="Сохранить"/>
                 </apex:pageBlockSectionItem>
             </apex:pageBlockSection>
-
         </apex:pageblock>
+        <div id="spinner">
+            <apex:image value="{!$Resource.LoadingView}" style=" width: 80px; height: 80px;"/>
+        </div>
     </apex:form>
 </apex:page>
